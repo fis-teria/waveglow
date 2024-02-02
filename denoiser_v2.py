@@ -10,12 +10,12 @@ class Denoiser(torch.nn.Module):
     def __init__(self, waveglow, filter_length=1024, n_overlap=4,
                  win_length=1024, mode='zeros'):
         super(Denoiser, self).__init__()
-        self.stft = STFT(filter_length=filter_length,
-                         hop_length=int(filter_length/n_overlap),
-                         win_length=win_length).cuda()
         #self.stft = STFT(filter_length=filter_length,
         #                 hop_length=int(filter_length/n_overlap),
-        #                 win_length=win_length).to("cpu")
+        #                 win_length=win_length).cuda()
+        self.stft = STFT(filter_length=filter_length,
+                         hop_length=int(filter_length/n_overlap),
+                         win_length=win_length).to("cpu")
         if mode == 'zeros':
             mel_input = torch.zeros(
                 (1, 80, 88),
